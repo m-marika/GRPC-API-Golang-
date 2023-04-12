@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+//import "google/api/annotations.proto";
+
+package grpc_api;
+
+option go_package = "./grpc_api";
+
+service CalculateLabParam {
+  rpc CleanStage (DNAcon) returns (ResultCleanStage) {}
+  rpc Volume (DNA) returns (ResultVolume) {}
+  rpc VolumeQ (DNAconQ1) returns (ResultVolumeQ) {}
+  rpc Limit (LimitRequest) returns (LimitReply) {}
+}
+
+message LimitRequest{
+  string ParamName = 1;
+  float ParamResult = 2;
+  int32 S = 3;
+}
+
+message LimitRange {
+  float Lower = 1;
+  float Upper = 2;
+  bool LowerUnbound = 3;
+  bool UpperUnbound = 4;
+}
+
+message LimitReply {
+  repeated LimitRange Ranges = 1;
+}
+
+message DNAcon {
+  int32 C = 1;
+}
+
+message ResultCleanStage {
+  int32 S = 1;
+}
+
+message DNA {
+  int32 C = 1;
+  int32 N = 2;
+}
+
+message ResultVolume {
+  float Vsample = 4;
+  float Vsalt = 2;
+  float Vwater = 3;
+  bool flagV = 1;
+}
+
+message DNAconQ1 {
+  int32 Q1 = 1;
+}
+
+message ResultVolumeQ {
+  float Vq1 = 1;
+  float Vnete = 2;
+  float Nq1 = 3;
+}
